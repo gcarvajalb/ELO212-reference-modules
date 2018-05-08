@@ -1,5 +1,8 @@
 `timescale 1ns / 1ps
 
+//Implementation of the traffic light example from Chapter 3 of the book
+// Digital Design and Computer Architecture, of Sara Harris
+
 module semaforo_FSM(
 	input  logic       clock,
 	input  logic       reset, TA, TB,
