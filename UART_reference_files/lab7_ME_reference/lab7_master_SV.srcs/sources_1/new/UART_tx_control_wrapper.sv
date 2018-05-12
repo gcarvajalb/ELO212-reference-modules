@@ -11,6 +11,8 @@ module UART_tx_control_wrapper
     output logic [1:0]     stateID
     );
 
+logic send16, busy;
+
 TX_control 
 #(  .INTER_BYTE_DELAY (INTER_BYTE_DELAY),
     .WAIT_FOR_REGISTER_DELAY (WAIT_FOR_REGISTER_DELAY)
