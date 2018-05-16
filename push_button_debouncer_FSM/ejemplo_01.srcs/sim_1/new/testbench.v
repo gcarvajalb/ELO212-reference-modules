@@ -10,11 +10,11 @@ module testbench();
 	
     wire PB_pressed_state, PB_pressed_pulse, PB_released_pulse;
 	
-	PB_debouncer DUT (
-        .clock (clock),
-        .reset (reset),
+	PushButton_Debouncer DUT (
+        .clk (clock),
+        .rst (reset),
         .PB (PB),
-        .PB_pressed_state (PB_pressed_state),
+        .PB_state (PB_pressed_state),
         .PB_pressed_pulse (PB_pressed_pulse),
         .PB_released_pulse (PB_released_pulse)
         );
