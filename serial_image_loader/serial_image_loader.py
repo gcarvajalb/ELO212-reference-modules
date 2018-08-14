@@ -1,7 +1,6 @@
-"""Serial Image Loader.
+"""Serial image loader.
 
-For use in the Digital Systems Laboratory. Converts an image to 4-bit RGB
-format and sends it through a serial port.
+Script for loading and sending images through serial port.
 
 Run using the -i flag to start a python interactive session after running the
 script
@@ -9,6 +8,7 @@ script
     $ python -i serial_image_loader.py
 
 Hans Lehnert Merino - UTFSM
+Laboratorio de Sistemas Digitales
 """
 import serial
 import sys
@@ -40,10 +40,10 @@ serial_port.open()
 
 
 def load_img(filename, size=DEFAULT_IMAGE_SIZE):
-    """Compute an ALU operation over a serial connection.
+    """Send image data over a serial interface.
 
-    Sends the serialized operands and opcode and and receives the result
-    through the serial port.
+    Open and resize and image, and send the serizalized data through the serial
+    port.
     """
     # Prepare data to send.
     image = Image.open(filename)
