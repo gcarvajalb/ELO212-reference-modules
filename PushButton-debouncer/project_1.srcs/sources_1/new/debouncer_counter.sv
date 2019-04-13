@@ -11,10 +11,11 @@ module PB_Debouncer_counter#(
 	output  logic PB_released_pulse    // clean and synchronized pulse for button released
  );
 	
+	
 	logic PB_sync_aux, PB_sync;
 
 // Double flopping stage for synchronizing async. PB input signal
-// PB_sync is the synchronized signal
+// PB_sync is the synchronized signal used for other circuits
     always_ff @(posedge clk) begin
         if (rst) begin
             PB_sync_aux <= 1'b0;

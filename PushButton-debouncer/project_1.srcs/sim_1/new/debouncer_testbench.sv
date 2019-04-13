@@ -10,13 +10,13 @@ module debouncer_testbench();
 	logic clk, rst, PB, PB_pressed_status, PB_pressed_pulse, PB_released_pulse;
 	
 	// an instance of the Device Under Test using implicit port connections
-	PB_Debouncer_FSM DUT(
-        .*
-        );
+//	PB_Debouncer_FSM DUT(
+//        .*
+//        );
         
-//    PB_Debouncer_counter DUT(
-//            .*
-//            );
+    PB_Debouncer_counter DUT(
+            .*
+            );
             
 	// generate a clock signal that inverts its value every five time units
 	always  #1 clk=~clk;
@@ -25,6 +25,7 @@ module debouncer_testbench();
 	initial begin
 		clk = 1'b0;
 		rst = 1'b0;
+		PB = 1'b0;
 		#60 rst = 1'b1;
         #30 rst = 1'b0;
 		#50 PB = 1'b1;
