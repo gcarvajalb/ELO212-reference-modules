@@ -3,7 +3,7 @@
 <!--                                                         -->
 <!-- Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.   -->
 
-<Project Version="7" Minor="44" Path="C:/ELO212-Lab2-2020/fib_example_project_sesion2/elo212-sesion2.xpr">
+<Project Version="7" Minor="44" Path="C:/Users/gcarv/Dropbox/ELO212-2020/ELO212-reference-modules/fib_example_project_sesion2/elo212-sesion2.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="3cd7e66864df4e979a39ce2efa7e446b"/>
@@ -29,7 +29,7 @@
     <Option Name="IPUserFilesDir" Val="$PPRDIR/../fib_example_project/elo212-sesion1.ip_user_files"/>
     <Option Name="IPStaticSourceDir" Val="$PIPUSERFILESDIR/ipstatic"/>
     <Option Name="EnableBDX" Val="FALSE"/>
-    <Option Name="WTXSimLaunchSim" Val="31"/>
+    <Option Name="WTXSimLaunchSim" Val="34"/>
     <Option Name="WTModelSimLaunchSim" Val="0"/>
     <Option Name="WTQuestaLaunchSim" Val="0"/>
     <Option Name="WTIesLaunchSim" Val="0"/>
@@ -58,37 +58,29 @@
   <FileSets Version="1" Minor="31">
     <FileSet Name="sources_1" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
       <Filter Type="Srcs"/>
-      <File Path="$PPRDIR/../fib_example_project/elo212-sesion1.srcs/sources_1/new/BCD_to_7seg.sv">
+      <File Path="$PPRDIR/elo212-sesion1.srcs/sources_1/new/BCD_to_7seg.sv">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../fib_example_project/elo212-sesion1.srcs/sources_1/new/counter_Nbits.sv">
+      <File Path="$PPRDIR/elo212-sesion1.srcs/sources_1/new/counter_Nbits.sv">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../fib_example_project/elo212-sesion1.srcs/sources_1/new/fib_rec.sv">
+      <File Path="$PPRDIR/elo212-sesion1.srcs/sources_1/new/fib_rec.sv">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
-      <File Path="$PPRDIR/../fib_example_project/elo212-sesion1.srcs/sources_1/new/fib_top.sv">
+      <File Path="$PPRDIR/elo212-sesion1.srcs/sources_1/new/fib_top.sv">
         <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../fib_example_project/elo212-sesion1.srcs/sources_1/new/flip_flops.sv">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
@@ -107,16 +99,8 @@
     </FileSet>
     <FileSet Name="sim_1" Type="SimulationSrcs" RelSrcDir="$PSRCDIR/sim_1">
       <Filter Type="Srcs"/>
-      <File Path="$PPRDIR/../fib_example_project/elo212-sesion1.srcs/sim_1/new/test_counter.sv">
+      <File Path="$PPRDIR/elo212-sesion1.srcs/sim_1/new/test_counter.sv">
         <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PPRDIR/../fib_example_project/elo212-sesion1.srcs/sim_1/new/test_FF.v">
-        <FileInfo SFType="SVerilog">
-          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
