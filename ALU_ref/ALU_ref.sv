@@ -1,3 +1,5 @@
+// Desarrollado por Oscar Rojas - ELO212 - 2020
+
 module tb_alu_ref #(parameter C_WIDTH = 8)
 (
 	input logic [C_WIDTH-1:0] A,
