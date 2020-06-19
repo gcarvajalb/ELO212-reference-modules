@@ -1,7 +1,5 @@
-`timescale 1ns / 1ps
-
 //Implementation of the traffic light example from Chapter 3 of the book
-// Digital Design and Computer Architecture, of Sara Harris
+// Digital Design and Computer Architecture, Harris & Harris
 
 module semaforo_FSM(
 	input  logic       clock,
@@ -9,18 +7,18 @@ module semaforo_FSM(
 	output logic [1:0] LA, LB
     );
     
-    enum logic[1:0] {STATE_0, STATE_1, STATE_2, STATE_3} state, next_state;  // setea una direccion y espera 
+    enum logic[3:0] {STATE_0, STATE_1, STATE_2, STATE_3} state, next_state;
     
     //output encoding
-    localparam GREEN = 2'b00;
-    localparam YELLOW = 2'b01;
-    localparam RED = 2'b10;
+    localparam GREEN    = 2'b00;
+    localparam YELLOW   = 2'b01;
+    localparam RED      = 2'b10;
     
     // one combinational block computes the next_state and outputs for the
     // current state
     always_comb begin
-        //using default assignments here allows to save space, helps on readability,
-        // and reduces the changes of errors
+        //using default assignments here allows us to save space, helps on readability,
+        //and reduces the changes of errors
         next_state = state;
     	LA = RED;
     	LB = RED;
