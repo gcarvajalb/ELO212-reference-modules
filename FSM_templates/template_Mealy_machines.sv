@@ -11,71 +11,74 @@ module module_name
  //Declarations:------------------------------
 
  //FSM states type:
- typedef enum logic [2:0] {A, B, C, ...} state;
+ typedef enum logic [10:0] {A, B, C, ...} state;
  state pr_state, nx_state;
 
  //Statements:--------------------------------
 
  //FSM state register:
- always_ff @(posedge clk, posedge rst)
-	if (rst) pr_state < = A;
-	else pr_state < = nx_state;
+ always_ff @(posedge clk) begin
+	if 		(rst) pr_state < = A;
+	else 	pr_state < = nx_state;
+end
 	
  //FSM combinational logic:
- always_comb
+ always_comb begin
 	case (pr_state)
 		A:
 			if (condition) begin
-				outp1  = < value > ;
-				outp2  = < value > ;
+				outp1  = <value> ;
+				outp2  = <value> ;
 				...
 				nx_state  = B;
 			end
 			else if (condition) begin
-				outp1  = < value > ;
-				outp2  = < value > ;
+				outp1  = <value> ;
+				outp2  = <value> ;
 				...
 				nx_state  = ...;
 			end
 			else begin
-				outp1  = < value > ;
-				outp2  = < value > ;
+				outp1  = <value> ;
+				outp2  = <value> ;
 				...
 				nx_state = A;
 			end
  
 		B:
 			if (condition) begin
-				outp1 = < value > ;
-				outp2 = < value > ;
+				outp1 = <value> ;
+				outp2 = <value> ;
 				...
-				nx_state < = C;
+				nx_state = C;
 			end
 			else if (condition) begin
-				outp1 = < value > ;
-				outp2 = < value > ;
+				outp1 = <value> ;
+				outp2 = <value> ;
 				...
-				nx_state < = ...;
+				nx_state = ...;
 			end
 			else begin
-				outp1 = < value > ;
-				outp2 = < value > ;
+				outp1 = <value> ;
+				outp2 = <value> ;
 				...
 				nx_state = B;
 			end
 		C: 	...
 			...
 	endcase
+end
 
- //Optional registered outputs:
-	always_ff @(posedge clk, posedge rst)
+ //Optional registered outputs (if required). It simply delays the outputs to prevent propagation of glitches
+	always_ff @(posedge clk) begin
 		if (rst) begin //rst might be not needed here
-			new_outp1 < = ...;
-			new_outp2 < = ...; ...
+			new_outp1 <= ...;
+			new_outp2 <= ...; ...
 		end
 		else begin
-			new_outp1 < = outp1;
-			new_outp2 < = outp2; ...
+			new_outp1 <= outp1;
+			new_outp2 <= outp2; ...
 		end
+end
 
  endmodule

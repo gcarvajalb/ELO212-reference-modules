@@ -1,8 +1,8 @@
 // Module header:-----------------------------
 module module_name
 #(parameter
-	param1 = < value > ,
-	param2 = < value > )
+	param1 = <value> ,
+	param2 = <value> )
 (
 	input 	logic clk, rst, ...
 	input 	logic [7:0] inp1, inp2, ...
@@ -11,13 +11,13 @@ module module_name
  //Declarations:------------------------------
 
  //FSM states type:
- typedef enum logic [2:0] {A, B, C, ...} state;
+ typedef enum logic [10:0] {A, B, C, ...} state;
  state pr_state, nx_state;
 
  //Statements:--------------------------------
 
  //FSM state register:
- always_ff @(posedge clk, posedge rst)
+ always_ff @(posedge clk)
 	if (rst) pr_state < = A;
 	else pr_state < = nx_state;
 
@@ -25,8 +25,8 @@ module module_name
  always_comb
 	case (pr_state)
 		A: begin
-			outp1 = < value > ;
-			outp2 = < value > ;
+			outp1 = <value> ;
+			outp2 = <value> ;
 			...
 			if (condition) nx_state = B;
 			else if (condition) nx_state = ...;
@@ -34,8 +34,8 @@ module module_name
 		end
  
 		B: begin
-			outp1 = < value > ;
-			outp2 = < value > ;
+			outp1 = <value> ;
+			outp2 = <value> ;
 			...
 			if (condition) nx_state = C;
 			else if (condition) nx_state = ...;
@@ -48,15 +48,15 @@ module module_name
 			...
 	endcase
 
- //Optional output register:
-	always_ff @(posedge clk, posedge rst)
+ //Optional output register (if required). It simply delays the combinational outputs to prevent propagation of glitches.
+	always_ff @(posedge clk)
 		if (rst) begin //rst might be not needed here
-			new_outp1 < = ...;
-			new_outp2 < = ...; ...
+			new_outp1 <= ...;
+			new_outp2 <= ...; ...
 		end
 		else begin
-			new_outp1 < = outp1;
-			new_outp2 < = outp2; ...
+			new_outp1 <= outp1;
+			new_outp2 <= outp2; ...
 		end
 
  endmodule
