@@ -18,7 +18,7 @@ module semaforo_FSM(
     // current state
     always_comb begin
         //using default assignments here allows us to save space, helps on readability,
-        //and reduces the changes of errors
+        //and reduces the chance of unintentional errors
         next_state = state;
     	LA = RED;
     	LB = RED;
@@ -45,15 +45,13 @@ module semaforo_FSM(
 
             STATE_3: begin
                     LB = YELLOW;
-                if(TB == 1'b0) begin
                     next_state = STATE_0;
-                end
                 end                
     	endcase
     end	
 
     //when clock ticks, update the state
-    always@(posedge clock or posedge reset)
+    always_ff@(posedge clock)
     	if(reset)
     		state <= STATE_0;
     	else
