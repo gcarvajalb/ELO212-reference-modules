@@ -25,11 +25,11 @@
 module unsigned_to_bcd
 (
 	input  logic 		clk, 	 // Reloj
-						reset,   // Reset
+				reset,   // Reset
 	input  logic 		trigger, // Inicio de conversión
-	input  logic [31:0] in,      // Número binario de entrada
+	input  logic [31:0] 	in,      // Número binario de entrada
 	output logic  		idle,    // Si vale 0, indica una conversión en proceso
-	output logic [31:0] bcd 	 // Resultado de la conversión
+	output logic [31:0] 	bcd 	 // Resultado de la conversión
 );
 
 	/*
