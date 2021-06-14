@@ -1,6 +1,8 @@
 /*
  * unsigned_to_bcd.v
  * 2017/04/18 - Felipe Veas <felipe.veasv [at] usm.cl>
+ * 2021/06/10 - Patricio Henriquez <patricio.henriqueze [at] sansano.usm.cl>
+ *
  *
  * Este módulo es una implementación del algoritmo double dabble,
  * comienza a convertir un número en binario cuando recibe un pulso
@@ -11,7 +13,8 @@
 // -- Plantilla de instanciación
 //	unsigned_to_bcd u32_to_bcd_inst (
 //		.clk(clk),
-//		.trigger(trigger),
+//		.reset(reset)
+//		.trigger(1'b1),
 //		.in(in),
 //		.idle(idle),
 //		.bcd(bcd)
@@ -21,11 +24,12 @@
 
 module unsigned_to_bcd
 (
-	input clk,            // Reloj
-	input trigger,        // Inicio de conversión
-	input [31:0] in,      // Número binario de entrada
-	output reg idle,      // Si vale 0, indica una conversión en proceso
-	output reg [31:0] bcd // Resultado de la conversión
+	input  logic 		clk, 	 // Reloj
+						reset,   // Reset
+	input  logic 		trigger, // Inicio de conversión
+	input  logic [31:0] in,      // Número binario de entrada
+	output logic  		idle,    // Si vale 0, indica una conversión en proceso
+	output logic [31:0] bcd 	 // Resultado de la conversión
 );
 
 	/*
@@ -35,29 +39,24 @@ module unsigned_to_bcd
 	 * https://en.wikipedia.org/wiki/Magic_number_(programming)
 	 * http://stackoverflow.com/questions/47882/what-is-a-magic-number-and-why-is-it-bad
 	 */
-	localparam S_IDLE  = 'b001;
-	localparam S_SHIFT = 'b010;
-	localparam S_ADD3  = 'b100;
-
-	reg [2:0] state, state_next; /* Contiene al estado actual y al siguiente */
-
-	reg [31:0] shift, shift_next;
-	reg [31:0] bcd_next;
-
+	 
+	 
 	localparam COUNTER_MAX = 32;
-	reg [5:0] counter, counter_next; /* Contador 6 bit para las iteraciones */
+	
+	(* fsm_encoding = "one_hot" *) enum logic [2:0] {S_IDLE, S_SHIFT, S_ADD3} state, next_state;
 
-	always @(*) begin
+	logic [31:0] shift, shift_next;
+	logic [31:0] bcd_next;
+	logic [5:0] counter, counter_next; /* Contador 6 bit para las iteraciones */
+
+	always_comb begin
 		/*
 		 * Por defecto, los estados futuros mantienen el estado actual. Esto nos
 		 * ayuda a no tener que ir definiendo cada uno de los valores de las señales
 		 * en cada estado posible.
 		 */
-		state_next = state;
-		shift_next = shift;
-		bcd_next = bcd;
-		counter_next = counter;
-
+		
+		{state_next, shift_next, bcd_next, counter_next} = {state, shift, bcd, counter};
 		idle = 1'b0; /* LOW para todos los estados excepto S_IDLE */
 
 		case (state)
@@ -125,10 +124,10 @@ module unsigned_to_bcd
 	end
 
 	always @(posedge clk) begin
-		state <= state_next;
-		shift <= shift_next;
-		bcd <= bcd_next;
-		counter <= counter_next;
+		if(reset)
+			{state, shift, bcd, counter} <= 'd0;
+		else
+			{state, shift, bcd, counter} <= {state_next, shift_next, bcd_next, counter_next};
 	end
 
 endmodule
