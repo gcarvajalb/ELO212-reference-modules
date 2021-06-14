@@ -25,13 +25,13 @@ module module_name
  //Part 3: Statements:---------------------------------------
 
  //Timer :
- always_ff @(posedge clk, posedge rst)
+ always_ff @(posedge clk)
 	if (rst) t < = 0;
 	else if (pr_state != nx_state) t <= 0; //reset the timer when state changes
 	else if (t != tmax) t <= t + 1;
 
  //FSM state register:
- always_ff @(posedge clk, posedge rst)
+ always_ff @(posedge clk)
 	if (rst) pr_state <= A;
 	else pr_state <= nx_state;
  
