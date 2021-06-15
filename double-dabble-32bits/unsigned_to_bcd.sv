@@ -43,7 +43,7 @@ module unsigned_to_bcd
 	 
 	localparam COUNTER_MAX = 32;
 	
-	(* fsm_encoding = "one_hot" *) enum logic [2:0] {S_IDLE, S_SHIFT, S_ADD3} state, next_state;
+	(* fsm_encoding = "one_hot" *) enum logic [2:0] {S_IDLE, S_SHIFT, S_ADD3} state, state_next;
 
 	logic [31:0] shift, shift_next;
 	logic [31:0] bcd_next;
@@ -124,8 +124,10 @@ module unsigned_to_bcd
 	end
 
 	always @(posedge clk) begin
-		if(reset)
-			{state, shift, bcd, counter} <= 'd0;
+		if(reset) begin
+			state <= S_IDLE;
+			{shift, bcd, counter} <= 'd0;
+		end
 		else
 			{state, shift, bcd, counter} <= {state_next, shift_next, bcd_next, counter_next};
 	end
