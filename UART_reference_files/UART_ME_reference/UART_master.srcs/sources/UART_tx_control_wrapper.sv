@@ -8,7 +8,7 @@ module UART_tx_control_wrapper
     input  logic [15:0]    SW,
     output logic [7:0]     tx_data,
     output logic           tx_start,
-    output logic [1:0]     stateID
+    output logic [5:0]     stateID
     );
 
 logic send16, busy;

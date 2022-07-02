@@ -31,7 +31,7 @@ module ME_top
 	
 	input  logic               button_c,
 	input  logic    [15:0]     switches,
-	output logic    [1:0]      leds,
+	output logic    [5:0]      leds,
 	
 	output  logic   [7:0]      ss_value,
     output  logic   [7:0]      ss_select
@@ -49,40 +49,41 @@ module ME_top
 	logic reset;
 	assign reset = reset_sr[1];
 	
+	//Synchronization of reset push button
 	always_ff @(posedge clk_100M)
 		reset_sr <= {reset_sr[0], ~reset_n};
 
     assign uart_tx_usb = uart_tx;
-    assign uart_rx = uart_rx;
-    assign uart_tx = uart_tx;
+    //assign uart_rx = uart_rx;
+    //assign uart_tx = uart_tx;
     assign uart_tx_busy = tx_busy;
-    //assign leds = result16;
 
 	/* Debouncer */
-	pb_debouncer #(
-		.COUNTER_WIDTH(16)
+	PB_Debouncer_FSM #(
+		.DELAY(10_000_000)
 	) pb_deb0 (
 		.clk(clk_100M),
 		.rst(reset),
-		.pb(button_c),
-		.pb_state(),
-		.pb_negedge(),
-		.pb_posedge(button_c_posedge)
+		.PB(button_c),
+		.PB_pressed_status(),
+		.PB_pressed_pulse(button_c_posedge),
+		.PB_released_pulse()
 	);
+	
 
 // Logica de control para transmitir las secuencias por la UART
 UART_tx_control_wrapper 
-#(  .INTER_BYTE_DELAY (100000),
+#(  .INTER_BYTE_DELAY (100_000),
     .WAIT_FOR_REGISTER_DELAY (100)
     
     ) UART_control_inst (
-	.clock(clk_100M),
-    .reset(reset),
-    .PB(button_c_posedge),
-    .SW(switches),
-    .tx_data(tx_data),
-    .tx_start(tx_start),
-    .stateID (leds[1:0])
+	.clock      (clk_100M),
+    .reset      (reset),
+    .PB         (button_c_posedge),
+    .SW         (switches),
+    .tx_data    (tx_data),
+    .tx_start   (tx_start),
+    .stateID    (leds[5:0])
     );
 
 
@@ -91,15 +92,15 @@ UART_tx_control_wrapper
 		.CLK_FREQUENCY(100000000), // reloj base de entrada
 		.BAUD_RATE(115200)
 	) uart_basic_inst (
-		.clk(clk_100M),
-		.reset(reset),
-		.rx(uart_rx),
-		.rx_data(rx_data),
-		.rx_ready(rx_ready),
-		.tx(uart_tx),
-		.tx_start(tx_start),
-		.tx_data(tx_data),
-		.tx_busy(tx_busy)
+		.clk          (clk_100M),
+		.reset        (reset),
+		.rx           (uart_rx),
+		.rx_data      (rx_data),
+		.rx_ready     (rx_ready),
+		.tx           (uart_tx),
+		.tx_start     (tx_start),
+		.tx_data      (tx_data),
+		.tx_busy      (tx_busy)
 	);
 
 // Logica de control para recibir los bytes desde la UART

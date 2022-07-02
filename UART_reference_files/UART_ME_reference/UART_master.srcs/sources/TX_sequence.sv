@@ -27,12 +27,12 @@ module TX_sequence
 	input  logic           PB,       //PushButton
 	output logic           send16,   // Si esta alto, se deben transmitir 16 bits (2 bytes)
 	input  logic           busy,     // Si esta alto, la UART se encuentra transmitiendo un dato
-	output logic [1:0]     stateID   // Indica en que estado de la secuencia esta para mostrarlo en los LEDs
+	output logic [5:0]     stateID   // Indica en que estado de la secuencia esta para mostrarlo en los LEDs
     );
     
     //reg[1:0] next_state, state; 
 
-enum logic [1:0] {IDLE, TX_OPERAND01, TX_OPERAND02, TX_ALU_CTRL} next_state, state;  
+enum logic [5:0] {IDLE, TX_OPERAND01, TX_OPERAND02, TX_ALU_CTRL} next_state, state;  
     //state encoding
 
     assign stateID = state;
