@@ -1,9 +1,20 @@
 /*
  * data_sync.v
  * 2017/05/13 - Felipe Veas <felipe.veasv at usm.cl>
- *
+ * 2022/07/04 - Mauricio Solis: Add some comments abd headers.
+ * @brief
  * This module synchronizes the input with respect the clock signal
  * and filters short spikes on the input line.
+ *
+ * Basicaly the "in" signal is passed through a register to synchronize it with the clk,
+ * then if the "in" signal is HIGH, a module 4 counter starts to count up to 2'b11
+ * in order to filter short spikes, once the counter is at 2'b11, the output is put on HIGH.
+ * Otherwise if the "in" signal is LOW, the counter is decreased, once the couter is at 2'b00
+ * the output is put on LOW.
+ * 
+ * @param clk         It should ve the FPGA clock.
+ * @param in          The raw input signal.
+ * @param stable_out  The synchronized and filtered signal.
  */
 
 `timescale 1ns / 1ps

@@ -1,8 +1,19 @@
 /*
  * uart_basic.v
  * 2017/02/01 - Felipe Veas <felipe.veasv at usm.cl>
- *
+ * 2022/07/04 - Mauricio Solis: Add some comments abd headers.
+ * @brief
  * Universal Asynchronous Receiver/Transmitter.
+ * 
+ * @param clk
+ * @param reset
+ * @param rx
+ * @param rx_data
+ * @param rx_ready
+ * @param tx
+ * @param tx_start
+ * @param tx_data
+ * @param tx_busy
  */
 
 `timescale 1ns / 1ps
