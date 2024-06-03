@@ -9,7 +9,7 @@ module ALU_ref #(parameter M = 8)
 	output logic [M-1:0] Result,
 	output logic [4:0] Flags
 );
-	logic V, C, Z, N, P;
+	logic N, Z, C, V, P;
 
 	always_comb begin
 		case(OpCode)
