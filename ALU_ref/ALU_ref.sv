@@ -7,44 +7,48 @@ module ALU_ref #(parameter M = 8)
 	input logic [1:0] OpCode,
 
 	output logic [M-1:0] Result,
-	output logic [4:0] Flags
+	output logic [5:0] Flags
 );
-	logic N, Z, C, V, P;
+	logic V, C, Z, N, S, P;
 
 	always_comb begin
 		case(OpCode)
 			2'b00: begin
-			    //RESTA
-			    {C, Result} = A - B;
-				V = (Result[M-1] & ~A[M-1] & B[M-1]) | (~Result[M-1] & A[M-1] & ~B[M-1]);
-			end
-
-			2'b01: begin
 			    //SUMA
 			    {C, Result} = A + B;
 				V = (Result[M-1] & ~A[M-1] & ~B[M-1]) | (~Result[M-1] & A[M-1] & B[M-1]);		
 			end
 
+			2'b01: begin
+			    //RESTA
+			    {C, Result} = A - B;
+				V = (Result[M-1] & ~A[M-1] & B[M-1]) | (~Result[M-1] & A[M-1] & ~B[M-1]);
+			end
+
 			2'b10: begin
-			    //OR 
-				Result = (A | B);
+			    //NAND
+				Result = ~(A & B);
 				C = 1'b0;
 				V = 1'b0;
 			end
 
 			2'b11: begin
-			    //AND
-				Result = (A & B);
+			    //NOR
+				Result = ~(A | B);
 				C = 1'b0;
 				V = 1'b0;
 			end
-
 		endcase
 
+		// Negative flag
 		N = Result[M-1];
+		// Zero flag
 		Z = (Result == '0);
-		P = ^Result;
+		// Parity flag
+		P = ~^Result;
+		// Sparsity flag
+		S = |Result && ~(| (Result & Result -1));
 
-		Flags = {N, Z, C, V, P};
+		Flags = {V, C, Z, N, P, S};
 	end
 endmodule
